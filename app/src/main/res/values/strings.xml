@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Gowdy</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="stern_prompt">Choose a ranking</string>
+
+    <string-array name="sterne_array">
+        <item>1 Stern</item>
+        <item>2 Sterne</item>
+        <item>3 Sterne</item>
+        <item>4 Sterne</item>
+        <item>5 Sterne</item>
+    </string-array>
+</resources>

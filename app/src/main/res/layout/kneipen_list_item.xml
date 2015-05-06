@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:paddingLeft="32dp"
+    android:paddingTop="4dp"
+    android:paddingRight="32dp"
+    android:paddingBottom="4dp"
+    android:background="#34495e">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:id="@+id/nameLabel"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#aaffffff"
+        android:textSize="18sp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Adresse"
+        android:id="@+id/adresseLabel"
+        android:layout_below="@+id/nameLabel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#77ffffff"
+        android:textSize="12sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Essenstyp"
+        android:id="@+id/typLabel"
+        android:layout_alignParentTop="false"
+        android:textColor="#77ffffff"
+        android:textSize="12sp"
+        android:layout_below="@+id/adresseLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SterneZahl"
+        android:id="@+id/bewertungValue"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentEnd="false"
+        android:textColor="#aaffffff"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentTop="false"
+        android:textSize="18dp"
+        android:layout_toLeftOf="@+id/sternImageView"
+        android:paddingTop="4dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sternImageView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/favourites7"
+        android:paddingTop="4dp"
+        android:layout_marginLeft="8dp" />
+
+</RelativeLayout>
