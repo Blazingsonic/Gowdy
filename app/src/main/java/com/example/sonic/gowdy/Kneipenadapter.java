@@ -1,6 +1,7 @@
 package com.example.sonic.gowdy;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -79,8 +80,11 @@ public class Kneipenadapter extends RecyclerView.Adapter<Kneipenadapter.ViewHold
             public void onPotato(View caller, int position) {
 
                 Log.i("Kneipenadapter", String.format("value=%d", position));
-                Toast.makeText(mContext, String.format("value=%d", position), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, String.format("value=%d", position), Toast.LENGTH_SHORT).show();
 
+                // Start new intent
+                Intent intent = new Intent(mContext, DetailActivity.class);
+                mContext.startActivity(intent);
             }
         });
 

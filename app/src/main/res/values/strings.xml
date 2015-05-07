@@ -12,4 +12,5 @@
         <item>4 Sterne</item>
         <item>5 Sterne</item>
     </string-array>
+    <string name="title_activity_detail">DetailActivity</string>
 </resources>
