@@ -27,27 +27,17 @@
         android:entries="@array/sterne_array"
         android:prompt="@string/stern_prompt" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <Spinner
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sortieren"
-        android:id="@+id/sortierenButton"
+        android:id="@+id/spinnerView2"
         android:layout_below="@+id/spinnerView"
-        android:background="#33000000"
-        android:textSize="16sp"
-        android:textColor="#aaffffff"
-        android:layout_centerHorizontal="true"
-        android:paddingLeft="16dp"
-        android:paddingTop="4dp"
-        android:paddingRight="16dp"
-        android:paddingBottom="4dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="2dp" />
+        android:layout_alignParentLeft="true" />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/recyclerView"
-        android:layout_below="@+id/sortierenButton" />
+        android:layout_below="@+id/spinnerView2" />
 
 </RelativeLayout>

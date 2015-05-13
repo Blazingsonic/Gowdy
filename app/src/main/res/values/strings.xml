@@ -6,11 +6,9 @@
     <string name="stern_prompt">Choose a ranking</string>
 
     <string-array name="sterne_array">
-        <item>1 Stern</item>
-        <item>2 Sterne</item>
-        <item>3 Sterne</item>
-        <item>4 Sterne</item>
-        <item>5 Sterne</item>
+        <item>Kategorie zum Sortieren auswählen</item>
+        <item>Nach Sternen sortieren</item>
+        <item>Nach Entfernung sortieren</item>
     </string-array>
     <string name="title_activity_detail">DetailActivity</string>
 </resources>
