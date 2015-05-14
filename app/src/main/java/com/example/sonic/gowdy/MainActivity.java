@@ -65,10 +65,59 @@ public class MainActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // Filter
-                if (position != 0) {
-                    mAdapter.setmKneipen(getListData2());
-                    mAdapter.notifyDataSetChanged();
+                ArrayList<Kneipe> kneipen = getListData();
+                // New kneipen array
+                ArrayList<Kneipe> kneipenFiltered = new ArrayList<Kneipe>();
+
+                switch (position) {
+                    // The filter code could be outsourced in a separate method
+                    case 0:
+                        kneipenFiltered = kneipen;
+                        break;
+                    case 1:
+                        for (int i = 0; i < kneipen.size(); i++) {
+                            if (kneipen.get(i).getBewertung() == "5") {
+                                Log.i(TAG, "This is 5 stars");
+                                kneipenFiltered.add(kneipen.get(i));
+                            }
+                        }
+                        break;
+                    case 2:
+                        for (int i = 0; i < kneipen.size(); i++) {
+                            if (kneipen.get(i).getBewertung() == "4") {
+                                Log.i(TAG, "This is 4 stars");
+                                kneipenFiltered.add(kneipen.get(i));
+                            }
+                        }
+                        break;
+                    case 3:
+                        for (int i = 0; i < kneipen.size(); i++) {
+                            if (kneipen.get(i).getBewertung() == "3") {
+                                Log.i(TAG, "This is 3 stars");
+                                kneipenFiltered.add(kneipen.get(i));
+                            }
+                        }
+                        break;
+                    case 4:
+                        for (int i = 0; i < kneipen.size(); i++) {
+                            if (kneipen.get(i).getBewertung() == "2") {
+                                Log.i(TAG, "This is 2 stars");
+                                kneipenFiltered.add(kneipen.get(i));
+                            }
+                        }
+                        break;
+                    case 5:
+                        for (int i = 0; i < kneipen.size(); i++) {
+                            if (kneipen.get(i).getBewertung() == "1") {
+                                Log.i(TAG, "This is 1 star");
+                                kneipenFiltered.add(kneipen.get(i));
+                            }
+                        }
+                        break;
                 }
+
+                mAdapter.setKneipen(kneipenFiltered);
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override

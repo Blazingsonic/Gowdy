@@ -91,8 +91,8 @@ public class Kneipenadapter extends RecyclerView.Adapter<Kneipenadapter.ViewHold
         return holder;
     }
 
-    public void setmKneipen(List<Kneipe> mKneipen) {
-        this.mKneipen = mKneipen;
+    public void setKneipen(List<Kneipe> kneipen) {
+        this.mKneipen = kneipen;
     }
 
     /*public void refill(List<Kneipe> kneipen) {
