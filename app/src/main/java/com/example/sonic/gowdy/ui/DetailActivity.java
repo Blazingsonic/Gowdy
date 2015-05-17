@@ -1,18 +1,38 @@
-package com.example.sonic.gowdy;
+package com.example.sonic.gowdy.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.example.sonic.gowdy.R;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 
 public class DetailActivity extends Activity {
+
+    @InjectView(R.id.nameLabel) TextView mName;
+    @InjectView(R.id.adresseLabel) TextView mAdresse;
+    @InjectView(R.id.typLabel) TextView mTyp;
+    @InjectView(R.id.bewertungValue) TextView mBewertung;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        ButterKnife.inject(this);
+
+        // Get data from intent
+        Intent intent = getIntent();
+        mName.setText(intent.getStringExtra("Name"));
+        mAdresse.setText(intent.getStringExtra("Adresse"));
+        mTyp.setText(intent.getStringExtra("Typ"));
+        mBewertung.setText(intent.getStringExtra("Bewertung"));
     }
 
     @Override

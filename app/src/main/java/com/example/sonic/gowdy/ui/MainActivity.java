@@ -1,21 +1,21 @@
-package com.example.sonic.gowdy;
+package com.example.sonic.gowdy.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.internal.widget.AdapterViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 
+import com.example.sonic.gowdy.Kneipe;
+import com.example.sonic.gowdy.R;
+import com.example.sonic.gowdy.adapters.Kneipenadapter;
+
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

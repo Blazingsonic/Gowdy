@@ -45,14 +45,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SterneZahl"
+        android:text="1"
         android:id="@+id/bewertungValue"
         android:layout_alignParentRight="false"
         android:layout_alignParentEnd="false"
         android:textColor="#aaffffff"
         android:layout_alignParentLeft="false"
         android:layout_alignParentTop="false"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:layout_toLeftOf="@+id/sternImageView"
         android:paddingTop="4dp" />
 

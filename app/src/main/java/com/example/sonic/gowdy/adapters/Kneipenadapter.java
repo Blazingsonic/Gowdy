@@ -1,4 +1,4 @@
-package com.example.sonic.gowdy;
+package com.example.sonic.gowdy.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.sonic.gowdy.ui.DetailActivity;
+import com.example.sonic.gowdy.Kneipe;
+import com.example.sonic.gowdy.R;
 
 import java.util.List;
 
@@ -73,7 +76,7 @@ public class Kneipenadapter extends RecyclerView.Adapter<Kneipenadapter.ViewHold
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public ViewHolder onCreateViewHolder(final ViewGroup viewGroup, int i) {
         final View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.kneipen_list_item, viewGroup, false);
 
         ViewHolder holder = new ViewHolder(view, new Kneipenadapter.ViewHolder.IMyViewHolderClicks() {
@@ -84,6 +87,10 @@ public class Kneipenadapter extends RecyclerView.Adapter<Kneipenadapter.ViewHold
 
                 // Start new intent
                 Intent intent = new Intent(mContext, DetailActivity.class);
+                intent.putExtra("Name", mKneipen.get(position).getName());
+                intent.putExtra("Adresse", mKneipen.get(position).getAdresse());
+                intent.putExtra("Typ", mKneipen.get(position).getTyp());
+                intent.putExtra("Bewertung", mKneipen.get(position).getBewertung());
                 mContext.startActivity(intent);
             }
         });
