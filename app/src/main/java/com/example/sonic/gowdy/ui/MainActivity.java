@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
     private String[] mTags = {"schwarzwaldnebel1.jpg", "schwarzwaldnebel2.jpg", "sonnenuntergang.jpg"};
 
     private RecyclerView.LayoutManager mLayoutManager;
-
+//Mongo
     @InjectView(R.id.spinnerView) Spinner mSpinner;
     @InjectView(R.id.spinnerView2) Spinner mSpinner2;
     @InjectView(R.id.recyclerView) RecyclerView mRecyclerView;
