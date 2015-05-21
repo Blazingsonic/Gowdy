@@ -35,7 +35,8 @@ public class MainActivity extends Activity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    private String mUrl = "http://webuser.hs-furtwangen.de/~taubew/android/image/schwarzwaldnebel1.jpg";
+    private String mImageUrl = "http://webuser.hs-furtwangen.de/~taubew/android/image/schwarzwaldnebel1.jpg";
+    private String mCouchUrl = "https://gowdy.iriscouch.com/gowdy/_design/gowdy/_view/kneipen_all";
     private String[] mTags = {"schwarzwaldnebel1.jpg", "schwarzwaldnebel2.jpg", "sonnenuntergang.jpg"};
 
     private RecyclerView.LayoutManager mLayoutManager;
@@ -51,8 +52,11 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
 
+        // Couchdb
+
+
         // Get Image from request
-        Picasso.with(this).load(mUrl).into(mImageRequest);
+        Picasso.with(this).load(mImageUrl).into(mImageRequest);
 
         ArrayList<Kneipe> kneipen = getListData();
         mRecyclerView.setHasFixedSize(true); // Not always recommended, but in this case enhances performance
@@ -173,6 +177,25 @@ public class MainActivity extends Activity {
 
     private ArrayList<Kneipe> getListData() {
         ArrayList<Kneipe> kneipen = new ArrayList<Kneipe>();
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(mCouchUrl).build();
+        Call call = client.newCall(request);
+
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                // Error
+                Log.e(TAG, e.toString());
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                // Success
+                String jsonData = response.body().string();
+                Log.v(TAG, "this is" + jsonData);
+            }
+        });
 
         Kneipe kneipe = new Kneipe();
         kneipe.setName("Restaurant Giovanni");
