@@ -47,6 +47,7 @@ public class MainActivity extends Activity {
     private String[] mTags = {"schwarzwaldnebel1.jpg", "schwarzwaldnebel2.jpg", "sonnenuntergang.jpg"};
 
     private ArrayList<Kneipe> mKneipen = null;
+    private ArrayList<Kneipe> mKneipenFiltered = null;
 
     private RecyclerView.LayoutManager mLayoutManager;
 
@@ -100,56 +101,56 @@ public class MainActivity extends Activity {
     }
 
     private void updateKneipenData(String caller, int position) {
-        ArrayList<Kneipe> kneipenFiltered = null;
+        mKneipenFiltered = new ArrayList<Kneipe>();
 
         switch (position) {
             // The filter code could be outsourced in a separate method
             case 0:
-                kneipenFiltered = mKneipen;
+                mKneipenFiltered = mKneipen;
                 break;
             case 1:
                 for (int i = 0; i < mKneipen.size(); i++) {
-                    if (mKneipen.get(i).getBewertung() == "5") {
+                    if (mKneipen.get(i).getBewertung().equals("5")) {
                         Log.i(TAG, "This is 5 stars");
-                        kneipenFiltered.add(mKneipen.get(i));
+                        mKneipenFiltered.add(mKneipen.get(i));
                     }
                 }
                 break;
             case 2:
                 for (int i = 0; i < mKneipen.size(); i++) {
-                    if (mKneipen.get(i).getBewertung() == "4") {
+                    if (mKneipen.get(i).getBewertung().equals("4")) {
                         Log.i(TAG, "This is 4 stars");
-                        kneipenFiltered.add(mKneipen.get(i));
+                        mKneipenFiltered.add(mKneipen.get(i));
                     }
                 }
                 break;
             case 3:
                 for (int i = 0; i < mKneipen.size(); i++) {
-                    if (mKneipen.get(i).getBewertung() == "3") {
+                    if (mKneipen.get(i).getBewertung().equals("3")) {
                         Log.i(TAG, "This is 3 stars");
-                        kneipenFiltered.add(mKneipen.get(i));
+                        mKneipenFiltered.add(mKneipen.get(i));
                     }
                 }
                 break;
             case 4:
                 for (int i = 0; i < mKneipen.size(); i++) {
-                    if (mKneipen.get(i).getBewertung() == "2") {
+                    if (mKneipen.get(i).getBewertung().equals("2")) {
                         Log.i(TAG, "This is 2 stars");
-                        kneipenFiltered.add(mKneipen.get(i));
+                        mKneipenFiltered.add(mKneipen.get(i));
                     }
                 }
                 break;
             case 5:
                 for (int i = 0; i < mKneipen.size(); i++) {
-                    if (mKneipen.get(i).getBewertung() == "1") {
+                    if (mKneipen.get(i).getBewertung().equals("1")) {
                         Log.i(TAG, "This is 1 star");
-                        kneipenFiltered.add(mKneipen.get(i));
+                        mKneipenFiltered.add(mKneipen.get(i));
                     }
                 }
                 break;
         }
 
-        updateDisplay(kneipenFiltered);
+        updateDisplay(mKneipenFiltered);
     }
 
     public void loadItemsInSpinner2(int position) {
