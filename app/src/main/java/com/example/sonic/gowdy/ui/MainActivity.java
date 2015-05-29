@@ -29,6 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Objects;
@@ -45,10 +46,10 @@ public class MainActivity extends Activity {
     private String mCouchUrl = "https://gowdy.iriscouch.com/gowdy/_design/gowdy/_view/kneipen_all";
     private String[] mTags = {"schwarzwaldnebel1.jpg", "schwarzwaldnebel2.jpg", "sonnenuntergang.jpg"};
 
-    private ArrayList<Kneipe> mKneipen;
+    private ArrayList<Kneipe> mKneipen = null;
 
     private RecyclerView.LayoutManager mLayoutManager;
-//Mongo
+
     @InjectView(R.id.spinnerView) Spinner mSpinner;
     @InjectView(R.id.spinnerView2) Spinner mSpinner2;
     @InjectView(R.id.recyclerView) RecyclerView mRecyclerView;
@@ -62,19 +63,10 @@ public class MainActivity extends Activity {
 
         // Couchdb
 
-
         // Get Image from request
         Picasso.with(this).load(mImageUrl).into(mImageRequest);
 
-        mKneipen = getKneipenData();
-
-        mRecyclerView.setHasFixedSize(true); // Not always recommended, but in this case enhances performance
-
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        final Kneipenadapter mAdapter = new Kneipenadapter(mKneipen, this);
-        mRecyclerView.setAdapter(mAdapter);
+        setKneipenData();
 
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -95,59 +87,9 @@ public class MainActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // Filter
-                ArrayList<Kneipe> kneipen = getKneipenData();
-                // New kneipen array
-                ArrayList<Kneipe> kneipenFiltered = new ArrayList<Kneipe>();
-
-                switch (position) {
-                    // The filter code could be outsourced in a separate method
-                    case 0:
-                        kneipenFiltered = kneipen;
-                        break;
-                    case 1:
-                        for (int i = 0; i < kneipen.size(); i++) {
-                            if (kneipen.get(i).getBewertung() == "5") {
-                                Log.i(TAG, "This is 5 stars");
-                                kneipenFiltered.add(kneipen.get(i));
-                            }
-                        }
-                        break;
-                    case 2:
-                        for (int i = 0; i < kneipen.size(); i++) {
-                            if (kneipen.get(i).getBewertung() == "4") {
-                                Log.i(TAG, "This is 4 stars");
-                                kneipenFiltered.add(kneipen.get(i));
-                            }
-                        }
-                        break;
-                    case 3:
-                        for (int i = 0; i < kneipen.size(); i++) {
-                            if (kneipen.get(i).getBewertung() == "3") {
-                                Log.i(TAG, "This is 3 stars");
-                                kneipenFiltered.add(kneipen.get(i));
-                            }
-                        }
-                        break;
-                    case 4:
-                        for (int i = 0; i < kneipen.size(); i++) {
-                            if (kneipen.get(i).getBewertung() == "2") {
-                                Log.i(TAG, "This is 2 stars");
-                                kneipenFiltered.add(kneipen.get(i));
-                            }
-                        }
-                        break;
-                    case 5:
-                        for (int i = 0; i < kneipen.size(); i++) {
-                            if (kneipen.get(i).getBewertung() == "1") {
-                                Log.i(TAG, "This is 1 star");
-                                kneipenFiltered.add(kneipen.get(i));
-                            }
-                        }
-                        break;
+                if (position != 0) {
+                    updateKneipenData("spinner2", position);
                 }
-
-                mAdapter.setKneipen(kneipenFiltered);
-                mAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -155,6 +97,59 @@ public class MainActivity extends Activity {
 
             }
         });
+    }
+
+    private void updateKneipenData(String caller, int position) {
+        ArrayList<Kneipe> kneipenFiltered = null;
+
+        switch (position) {
+            // The filter code could be outsourced in a separate method
+            case 0:
+                kneipenFiltered = mKneipen;
+                break;
+            case 1:
+                for (int i = 0; i < mKneipen.size(); i++) {
+                    if (mKneipen.get(i).getBewertung() == "5") {
+                        Log.i(TAG, "This is 5 stars");
+                        kneipenFiltered.add(mKneipen.get(i));
+                    }
+                }
+                break;
+            case 2:
+                for (int i = 0; i < mKneipen.size(); i++) {
+                    if (mKneipen.get(i).getBewertung() == "4") {
+                        Log.i(TAG, "This is 4 stars");
+                        kneipenFiltered.add(mKneipen.get(i));
+                    }
+                }
+                break;
+            case 3:
+                for (int i = 0; i < mKneipen.size(); i++) {
+                    if (mKneipen.get(i).getBewertung() == "3") {
+                        Log.i(TAG, "This is 3 stars");
+                        kneipenFiltered.add(mKneipen.get(i));
+                    }
+                }
+                break;
+            case 4:
+                for (int i = 0; i < mKneipen.size(); i++) {
+                    if (mKneipen.get(i).getBewertung() == "2") {
+                        Log.i(TAG, "This is 2 stars");
+                        kneipenFiltered.add(mKneipen.get(i));
+                    }
+                }
+                break;
+            case 5:
+                for (int i = 0; i < mKneipen.size(); i++) {
+                    if (mKneipen.get(i).getBewertung() == "1") {
+                        Log.i(TAG, "This is 1 star");
+                        kneipenFiltered.add(mKneipen.get(i));
+                    }
+                }
+                break;
+        }
+
+        updateDisplay(kneipenFiltered);
     }
 
     public void loadItemsInSpinner2(int position) {
@@ -184,7 +179,7 @@ public class MainActivity extends Activity {
         mSpinner2.setAdapter(adapter);
     }
 
-    private ArrayList<Kneipe> getKneipenData() {
+    private void setKneipenData() {
         final ArrayList<Kneipe> kneipen = new ArrayList<Kneipe>();
 
         OkHttpClient client = new OkHttpClient();
@@ -241,27 +236,45 @@ public class MainActivity extends Activity {
 
                             kneipen.add(kneipe);
                             Log.v(TAG, kneipen.toString());
+
+                            if (kneipen != null) {
+                                updateDisplay(kneipen);
+                            }
                         } catch (JSONException e) {
                             // Something went wrong!
                         }
                     }
+                    mKneipen = kneipen;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         });
+    }
 
-        Log.v(TAG, kneipen.toString());
-        return kneipen;
+    private void updateDisplay(final ArrayList<Kneipe> kneipen) {
+        Log.i(TAG, kneipen.toString());
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mRecyclerView.setHasFixedSize(true); // Not always recommended, but in this case enhances performance
+
+                mLayoutManager = new LinearLayoutManager(MainActivity.this);
+                mRecyclerView.setLayoutManager(mLayoutManager);
+
+                final Kneipenadapter mAdapter = new Kneipenadapter(kneipen, MainActivity.this);
+                mRecyclerView.setAdapter(mAdapter);
+            }
+        });
     }
 
     private Kneipe makeKneipe(String name, String adresse, String typ, String bewertung) {
         Kneipe kneipe = new Kneipe();
-        kneipe.setName("Zum Bergbrau");
-        kneipe.setAdresse("Kahnum 87, Stuttgart");
-        kneipe.setTyp("Gute Weine");
-        kneipe.setBewertung("4");
-
+        kneipe.setName(name);
+        kneipe.setAdresse(adresse);
+        kneipe.setTyp(typ);
+        kneipe.setBewertung(bewertung);
 
         return kneipe;
     }
