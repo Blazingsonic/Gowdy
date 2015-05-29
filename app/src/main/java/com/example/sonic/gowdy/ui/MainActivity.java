@@ -203,40 +203,42 @@ public class MainActivity extends Activity {
                 // Success
                 String jsonData = response.body().string();
                 try {
-                    JSONObject object1 = new JSONObject(jsonData);
-                    Log.v(TAG, object1.toString());
+                    JSONObject jsonMain = new JSONObject(jsonData);
+                    Log.v(TAG, jsonMain.toString());
 
-                    JSONArray array1 = object1.getJSONArray("rows");
-                    Log.v(TAG, array1.toString());
+                    JSONArray jsonRows = jsonMain.getJSONArray("rows");
+                    Log.v(TAG, jsonRows.toString());
 
-                    JSONObject object2 = array1.getJSONObject(0);
-                    Log.v(TAG, object2.toString());
+                    JSONObject jsonFirst = jsonRows.getJSONObject(0);
+                    Log.v(TAG, jsonFirst.toString());
 
-                    String string1 = object2.getString("value");
-                    Log.v(TAG, string1);
+                    String value = jsonFirst.getString("value");
+                    Log.v(TAG, value);
 
-                    JSONObject object3 = new JSONObject(string1);
-                    Log.v(TAG, object3.toString());
+                    JSONObject jsonValue = new JSONObject(value);
+                    Log.v(TAG, jsonValue.toString());
 
-                    JSONObject object4 = object3.getJSONObject("kneipen");
-                    Log.v(TAG, object4.toString());
+                    JSONObject jsonKneipen = jsonValue.getJSONObject("kneipen");
+                    Log.v(TAG, jsonKneipen.toString());
 
 
-                    Iterator<String> iter = object4.keys();
+                    Iterator<String> iter = jsonKneipen.keys();
                     while (iter.hasNext()) {
                         String key = iter.next();
                         try {
-                            Object value = object4.get(key);
-                            Log.v(TAG, value.toString());
-                            JSONObject neee = new JSONObject(value.toString());
+                            Object object = jsonKneipen.get(key);
+                            Log.v(TAG, object.toString());
 
-                            String name = neee.getString("name");
-                            String adresse = neee.getString("adresse");
-                            String typ = neee.getString("typ");
-                            String bewertung = neee.getString("bewertung");
+                            JSONObject jsonKneipe = new JSONObject(object.toString());
+
+                            String name = jsonKneipe.getString("name");
+                            String adresse = jsonKneipe.getString("adresse");
+                            String typ = jsonKneipe.getString("typ");
+                            String bewertung = jsonKneipe.getString("bewertung");
 
                             Kneipe kneipe = makeKneipe(name, adresse, typ, bewertung);
                             Log.v(TAG, kneipe.toString());
+
                             kneipen.add(kneipe);
                             Log.v(TAG, kneipen.toString());
                         } catch (JSONException e) {
