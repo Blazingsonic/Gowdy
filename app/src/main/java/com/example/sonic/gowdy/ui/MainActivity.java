@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
     public static final String TAG = MainActivity.class.getSimpleName();
 
     private String mImageUrl = "http://webuser.hs-furtwangen.de/~taubew/android/image/schwarzwaldnebel1.jpg";
-    private String mCouchUrl = "https://gowdy.iriscouch.com/gowdy/_design/gowdy/_view/kneipen_all";
+    private String mCouchUrl = "https://gowdy.iriscouch.com/gowdy/_design/gowdy/_view/alleKneipen";
     private String[] mTags = {"schwarzwaldnebel1.jpg", "schwarzwaldnebel2.jpg", "sonnenuntergang.jpg"};
 
     private ArrayList<Kneipe> mKneipen = null;
@@ -205,47 +205,34 @@ public class MainActivity extends Activity {
                     JSONArray jsonRows = jsonMain.getJSONArray("rows");
                     Log.v(TAG, jsonRows.toString());
 
-                    JSONObject jsonFirst = jsonRows.getJSONObject(0);
-                    Log.v(TAG, jsonFirst.toString());
+                    for (int i = 0; i < jsonRows.length(); i++) {
+                        Log.v(TAG + " KneipenArray", jsonRows.get(i).toString());
 
-                    String value = jsonFirst.getString("value");
-                    Log.v(TAG, value);
+                        JSONObject jsonKneipe = jsonRows.getJSONObject(i);
 
-                    JSONObject jsonValue = new JSONObject(value);
-                    Log.v(TAG, jsonValue.toString());
+                        String value = jsonKneipe.getString("value");
 
-                    JSONObject jsonKneipen = jsonValue.getJSONObject("kneipen");
-                    Log.v(TAG, jsonKneipen.toString());
+                        JSONObject jsonValue = new JSONObject(value);
+                        Log.v(TAG, jsonValue.toString());
 
+                        String name = jsonValue.getString("name");
+                        String adresse = jsonValue.getString("adresse");
+                        String typ = jsonValue.getString("typ");
+                        String bewertung = jsonValue.getString("bewertung");
 
-                    Iterator<String> iter = jsonKneipen.keys();
-                    while (iter.hasNext()) {
-                        String key = iter.next();
-                        try {
-                            Object object = jsonKneipen.get(key);
-                            Log.v(TAG, object.toString());
+                        Kneipe kneipe = makeKneipe(name, adresse, typ, bewertung);
+                        Log.v(TAG, kneipe.toString());
 
-                            JSONObject jsonKneipe = new JSONObject(object.toString());
+                        kneipen.add(kneipe);
+                        Log.v(TAG, kneipen.toString());
 
-                            String name = jsonKneipe.getString("name");
-                            String adresse = jsonKneipe.getString("adresse");
-                            String typ = jsonKneipe.getString("typ");
-                            String bewertung = jsonKneipe.getString("bewertung");
-
-                            Kneipe kneipe = makeKneipe(name, adresse, typ, bewertung);
-                            Log.v(TAG, kneipe.toString());
-
-                            kneipen.add(kneipe);
-                            Log.v(TAG, kneipen.toString());
-
-                            if (kneipen != null) {
-                                updateDisplay(kneipen);
-                            }
-                        } catch (JSONException e) {
-                            // Something went wrong!
+                        if (kneipen != null) {
+                            updateDisplay(kneipen);
                         }
+
+                        mKneipen = kneipen;
+                        Log.v(TAG + " mKneipen", mKneipen.toString());
                     }
-                    mKneipen = kneipen;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
