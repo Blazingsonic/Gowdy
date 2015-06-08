@@ -90,9 +90,10 @@ public class MainActivity extends Activity {
 
     static Uri mMediaUri;
 
-    @InjectView(R.id.takePhotoButton) Button mTakePhotoButton;
     @InjectView(R.id.spinnerView) Spinner mSpinner;
     @InjectView(R.id.spinnerView2) Spinner mSpinner2;
+    @InjectView(R.id.viewMapButton) Button mViewMapButton;
+    @InjectView(R.id.takePhotoButton) Button mTakePhotoButton;
     @InjectView(R.id.imageRequest) ImageView mImageRequest;
     @InjectView(R.id.recyclerView) RecyclerView mRecyclerView;
 
@@ -110,6 +111,13 @@ public class MainActivity extends Activity {
         setKneipenData();
 
         // Set on click listeners
+        mViewMapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MapActivity.class);
+                startActivity(intent);
+            }
+        });
         mTakePhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -502,14 +510,5 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private class JSONperHTTP {
-
-        /*StringEntity entity = new StringEntity(body);
-        HttpPost httpPost = new HttpPost("https://gowdy.iriscouch.com/_utils/database.html?gowdy");
-        httpPost.setEntity(entity);
-        httpPost.setHeader("Content‐type", "application/json");
-        HttpResponse httpResponse = httpClient.execute(httpPost);*/
     }
 }

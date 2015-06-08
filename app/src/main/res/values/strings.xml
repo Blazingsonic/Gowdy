@@ -11,4 +11,5 @@
         <item>Nach Entfernung sortieren</item>
     </string-array>
     <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_map">MapActivity</string>
 </resources>
